@@ -1,17 +1,15 @@
 class Solution {
 public:
     int m , n , k ;
-    int dp[51][101][51] ;
+    long long dp[51][101][51] ;
     const int mod = 1e9+7 ; 
-    int go(int i , int mx , int ki){
+    long long go(int i , int mx , int ki){
         if(ki < 0) return 0 ;
         if(i == n) return ki == 0;
-        int & ret = dp[i][mx][ki] ; 
+        long long & ret = dp[i][mx][ki] ; 
         if(~ret) return ret; 
         ret = 0 ;
-        for (int j = 1; j <=mx; ++j) {
-            ret =( ret + go(i+1 , mx , ki))%mod ;
-        }
+        ret =( ret + (go(i+1 , mx , ki)%mod * mx)%mod)%mod ;
         for (int j = mx+1; j <=m; ++j) {
             ret =( ret + go(i+1,j,ki-1))%mod ;
         }
